@@ -14,7 +14,7 @@ class ChatRoom extends Component {
 				<div className="chatContainer">
 					<div className="chatWindow">
 						<div className="messageContainer">
-							<div className="chatMessageSender">James:</div>
+							<div className="chatMessageSender"><p>James:</p></div>
 							<div className="messageContent">Hi how are you?</div>
 						</div>
 					</div>
