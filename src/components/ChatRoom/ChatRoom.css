@@ -1,0 +1,119 @@
+.layoutContainer {
+	width: 85%;
+	height: 80%;
+	border: 2px solid white;
+	border-radius: 10px;
+	position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.users {
+    min-height: 80%;
+    width: 10%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    overflow: scroll;
+}
+.users::after {
+	content: " ";
+	height: 100%;
+	width: 0;
+	border-right: 1px solid white;
+	position: absolute;
+    right: 0;
+    top:12%;
+    align-content: center;
+}
+
+.userContainer{
+    width: 50%;
+    height: 8%;
+    border:1px solid white;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+    margin: 10px;
+}
+.username{
+    width:50%;
+    height: 80%;
+    font-size: 1.2rem;
+    align-content: center;
+    align-self: center;
+}
+.status{
+    height: 15px;
+    width:15px;
+    border-radius: 50%;
+    align-self: center;
+    display: none;
+}
+
+.on{
+    display:block;
+    background-color: greenyellow;
+
+}
+.off{
+    display:block;
+    background-color: red;
+    
+}
+.chatContainer {
+	height: 100%;
+	width: 80%;
+    position: relative;
+}
+.messageContainer{
+    margin-top: 10px;
+    margin-left: 10px;
+    border:1px solid lightcoral;
+    min-height:5%;;
+    width:20%;
+    float: left;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border-radius: 15px;;
+}
+
+.chatWindow{
+    width: 100%;
+    height:80%;
+    background-color: white;
+    border-radius: 15px;
+}
+
+.controls{
+    width:60%;
+    height:10% ;
+    position: absolute;
+    bottom: 5%;
+    border:1px solid white;
+    right: 10%;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.controls input{
+    all:unset;
+    min-width:85%;
+    background-color:white;
+    border-radius: 15px;
+    float: left;
+    
+}
+.controls button{
+    all:unset;
+    height:50px;
+    width:50px;
+    border-radius: 50%;;
+    background-color: white;;
+    
+}
