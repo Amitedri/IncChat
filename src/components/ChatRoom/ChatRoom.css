@@ -8,26 +8,36 @@
 	flex-direction: row;
 	justify-content: center;
 }
-.users {
-	min-height: 50%;
+.usersContainerWrap {
+	height: 100%;
 	width: 20%;
 	position: relative;
 	display: flex;
 	left: 0;
 	justify-content: center;
+	background: linear-gradient(239.19deg, #ba15f3 35.26%, #0014c4 89.62%);
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	text-align: center;
 }
-.users::after {
-	content: " ";
-	height: 80%;
-	width: 0;
-	border-right: 1px solid white;
-	position: absolute;
-	right: 0;
-	top: 12%;
-	align-content: center;
+.usersContainerWrap p{
+	font-size: 30px;
+	font-weight: 500;
 }
-
-.userContainer {
+.usersOutsideContainer {
+	height: 95%;
+	width: 100%;
+	background-color: honeydew;
+	border-top-left-radius: 15px;
+}
+.usersInnerContainer{
+	height:80%;
+}
+.quickContactContainer{
+	width:100%;
+}
+.singleUserContainer {
 	width: 80%;
 	height: 8%;
 	border: 1px solid white;
@@ -77,19 +87,17 @@
 	margin-top: 10px;
 	display: flex;
 	flex-direction: column;
-    justify-content: center;
-    overflow: hidden;
-
+	justify-content: center;
+	overflow: hidden;
 }
 
 .messageContainer {
-
 	height: auto;
 	width: 100%;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-    text-align: left;
+	text-align: left;
 }
 .chatMessageSender {
 	height: 100%;
@@ -100,14 +108,13 @@
 .messageContent {
 	width: 80%;
 	min-height: 2rem;
-    background-color: grey;
+	background-color: grey;
 }
 .controls {
 	width: 60%;
 	height: 10%;
 	position: absolute;
 	bottom: 5%;
-	border: 1px solid white;
 	right: 10%;
 	border-radius: 15px;
 	display: flex;

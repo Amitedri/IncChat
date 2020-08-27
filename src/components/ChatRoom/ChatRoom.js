@@ -1,14 +1,23 @@
 import React, {Component} from "react";
 import "./ChatRoom.css";
+import userImage from '../../assets/user.jpg';
 class ChatRoom extends Component {
 	state = {};
 	render() {
 		return (
 			<div className="layoutContainer">
-				<div className="users">
-					<div className="userContainer">
+				<div className="usersContainerWrap">
+				<p>chats</p>
+					<div className='usersOutsideContainer'>
+						<div className='quickContactContainer'>
+							<div className='miniContact'/>
+						</div>
+						<div className='usersInnerContainer'>
+					<div className="singleUserContainer">
 						<div className="status on" />
 						<div className="username">John</div>
+					</div>
+					</div>
 					</div>
 				</div>
 				<div className="chatContainer">
