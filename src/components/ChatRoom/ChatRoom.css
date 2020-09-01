@@ -1,138 +1,136 @@
 .layoutContainer {
-	width: 85%;
-	height: 80%;
-	border: 2px solid white;
-	border-radius: 10px;
-	position: relative;
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
+    width: 85%;
+    height: 80%;
+    border: 2px solid white;
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 .usersContainerWrap {
-	height: 100%;
-	width: 20%;
-	position: relative;
-	display: flex;
-	left: 0;
-	justify-content: center;
-	background: linear-gradient(239.19deg, #ba15f3 35.26%, #0014c4 89.62%);
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
-	text-align: center;
+    height: 100%;
+    width: 20%;
+    position: relative;
+    display: flex;
+    left: 0;
+    justify-content: center;
+    background: linear-gradient(239.19deg, #ba15f3 35.26%, #0014c4 89.62%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-align: center;
 }
-.usersContainerWrap p{
-	font-size: 30px;
-	font-weight: 500;
+.usersContainerWrap p {
+    font-size: 30px;
+    font-weight: 500;
 }
 .usersOutsideContainer {
-	height: 95%;
-	width: 100%;
-	background-color: honeydew;
-	border-top-left-radius: 15px;
+    height: 95%;
+    width: 100%;
+    background-color: honeydew;
+    border-top-left-radius: 15px;
 }
-.usersInnerContainer{
-	height:80%;
+.usersInnerContainer {
+    height: 80%;
 }
-.quickContactContainer{
-	width:100%;
+.quickContactContainer {
+    width: 100%;
 }
 .singleUserContainer {
-	width: 80%;
-	height: 8%;
-	border: 1px solid white;
-	border-radius: 15px;
-	display: flex;
-	flex-direction: row;
-	text-align: center;
-	justify-content: center;
-	margin: 10px;
+    width: 80%;
+    height: 8%;
+    border: 1px solid white;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+    margin: 10px;
 }
 .username {
-	width: 50%;
-	height: 80%;
-	font-size: 1.2rem;
-	align-content: center;
-	align-self: center;
+    width: 50%;
+    height: 80%;
+    font-size: 1.2rem;
+    align-content: center;
+    align-self: center;
 }
 .status {
-	height: 15px;
-	width: 15px;
-	border-radius: 50%;
-	align-self: center;
-	display: none;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    align-self: center;
+    display: none;
 }
 
 .on {
-	display: block;
-	background-color: greenyellow;
+    display: block;
+    background-color: greenyellow;
 }
 .off {
-	display: block;
-	background-color: red;
+    display: block;
+    background-color: red;
 }
 .chatContainer {
-	height: 100%;
-	width: 80%;
-	position: relative;
-	display: flex;
-	flex-direction: column;
+    height: 100%;
+    width: 80%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 .chatWindow {
-	width: 80%;
-	height: 80%;
-	background-color: white;
-	border-radius: 15px;
-	align-self: center;
-	margin-top: 10px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	overflow: hidden;
+    width: 80%;
+    height: 80%;
+    background-color: white;
+    border-radius: 15px;
+    align-self: center;
+    margin-top: 10px;
+    display: flex;
+    overflow: hidden;
 }
 
 .messageContainer {
-	height: auto;
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	text-align: left;
+    height: 25px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: left;
 }
 .chatMessageSender {
-	height: 100%;
-	width: 20%;
-	color: lightcoral;
-	font-weight: 500;
+    height: 100%;
+    width: 20%;
+    color: lightcoral;
+    font-weight: 500;
 }
 .messageContent {
-	width: 80%;
-	min-height: 2rem;
-	background-color: grey;
+    width: 80%;
+    min-height: 2rem;
+    background-color: grey;
 }
 .controls {
-	width: 60%;
-	height: 10%;
-	position: absolute;
-	bottom: 5%;
-	right: 10%;
-	border-radius: 15px;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-evenly;
+    width: 60%;
+    height: 10%;
+    position: absolute;
+    bottom: 5%;
+    right: 10%;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
 
 .controls input {
-	all: unset;
-	min-width: 85%;
-	background-color: white;
-	border-radius: 15px;
-	float: left;
+    all: unset;
+    min-width: 85%;
+    background-color: white;
+    border-radius: 15px;
+    float: left;
 }
 .controls button {
-	all: unset;
-	height: 50px;
-	width: 50px;
-	border-radius: 50%;
-	background-color: white;
+    all: unset;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: white;
 }

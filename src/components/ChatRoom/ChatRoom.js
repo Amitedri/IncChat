@@ -1,41 +1,87 @@
-import React, {Component} from "react";
+import React, { useEffect, useState } from "react";
 import "./ChatRoom.css";
-import userImage from '../../assets/user.jpg';
-class ChatRoom extends Component {
-	state = {};
-	render() {
-		return (
-			<div className="layoutContainer">
-				<div className="usersContainerWrap">
-				<p>chats</p>
-					<div className='usersOutsideContainer'>
-						<div className='quickContactContainer'>
-							<div className='miniContact'/>
-						</div>
-						<div className='usersInnerContainer'>
-					<div className="singleUserContainer">
-						<div className="status on" />
-						<div className="username">John</div>
-					</div>
-					</div>
-					</div>
-				</div>
-				<div className="chatContainer">
-					<div className="chatWindow">
-						<div className="messageContainer">
-							<div className="chatMessageSender"><p>James:</p></div>
-							<div className="messageContent">Hi how are you?</div>
-						</div>
-					</div>
-				</div>
-				<div className="controls">
-					<input placeholder='type something...'/>
-					<button>Send</button>
+import * as Components from "./components";
+import socketio from "socket.io-client";
 
-				</div>
-			</div>
-		);
-	}
-}
+// import userImage from '../../assets/user.jpg'
 
+const ChatRoom = ({ location }) => {
+    const username = window.localStorage.getItem("userName");
+    const room = window.localStorage.getItem("room");
+    //
+    //Chat data
+    const [message, setMessage] = useState("");
+    const [messages, setMessages] = useState([]);
+    const [users, setUsers] = useState([]);
+    const endPoint = "http://127.0.0.1:5000/";
+    const io = socketio.connect(endPoint);
+    useEffect(() => {
+        io.emit("join", { username, room });
+
+        io.on("greetNewUser", (value) => {
+            setMessages([...messages, value]);
+        });
+        io.on("updateConnectedUsers", (value) => {
+            console.log(value);
+        });
+        return () => {
+            io.emit("disconnect", { username });
+            io.off();
+        };
+    }, [endPoint, location.search]);
+
+    useEffect(() => {
+        io.on("disMessage", ({ username, message }) => {
+            const newMessage = message;
+            setMessages([...messages, newMessage]);
+        });
+    }, [message]);
+
+    const handleNewMessage = () => {
+        io.emit("message", { username, room, message });
+        console.log(messages);
+
+        // io.emit("message", message);
+    };
+    //close socket on browser close
+    window.onbeforeunload = function () {
+        io.emit("disconnect", { username });
+        return io.off();
+    };
+
+    return (
+        <div className="layoutContainer">
+            <div className="usersContainerWrap">
+                <p>chats</p>
+                <div className="usersOutsideContainer">
+                    <div className="quickContactContainer">
+                        <div className="miniContact" />
+                    </div>
+                    <div className="usersInnerContainer"></div>
+                </div>
+            </div>
+            <div className="chatContainer">
+                <div className="chatWindow">
+                    {messages.map((message, index) => {
+                        return (
+                            <div key={index} className="messageContainer">
+                                <div className="chatMessageSender">
+                                    <p>{username}</p>
+                                </div>
+                                <div className="messageContent">{message}</div>
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
+            <div className="controls">
+                <input
+                    onInput={(event) => setMessage(event.target.value)}
+                    placeholder="type something..."
+                />
+                <button onClick={handleNewMessage}>Send</button>
+            </div>
+        </div>
+    );
+};
 export default ChatRoom;
