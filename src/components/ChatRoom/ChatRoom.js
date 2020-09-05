@@ -22,11 +22,23 @@ const ChatRoom = ({ location }) => {
     const [users, setUsers] = useState([]);
     const endPoint = 'http://127.0.0.1:5000/';
     const io = socketio.connect(endPoint);
+    const [id, setId] = useState('');
+    const [obj, setObj] = useState({});
+    //object the will be sent to server
+
+    const userObj = (username, room, id) => {
+        return { username, room, id };
+    };
+
     useEffect(() => {
+        setObj(userObj(username, room, io.id));
+    }, [endPoint]);
+    useEffect(() => {
+        //store socket ID
         //clear local storage
         window.localStorage.clear();
         //joinin room and announcing it back from the server to the sockets connected to that room
-        io.emit('join', { username, room });
+        io.emit('join', userObj);
         //Sends welcome string to selected room
         io.on('greetNewUser', ({ username, message }) => {
             return setMessages((messages) => [
@@ -36,13 +48,12 @@ const ChatRoom = ({ location }) => {
         });
         //updates connected sockets list
 
-        io.on('updateConnectedUsers', (users, callback) => {
-            console.log(callback());
+        io.on('updateConnectedUsers', (users) => {
             setUsers([...users]);
         });
-        console.log(io.connected);
+
         return () => {
-            io.emit('disconnect', { username, room });
+            io.emit('disconnect', userObj);
             io.disconnect();
             io.off();
         };
@@ -53,6 +64,7 @@ const ChatRoom = ({ location }) => {
     });
 
     const handleNewMessage = () => {
+        console.log(obj);
         return io.emit('message', { username, room, message });
     };
     //close socket on browser close
@@ -70,8 +82,8 @@ const ChatRoom = ({ location }) => {
                         <div className="miniContact" />
                     </div>
                     <div className="usersInnerContainer">
-                        {users.map((user) => {
-                            return <div>{user.username}</div>;
+                        {users.map((user, index) => {
+                            return <div key={index}>{user.username}</div>;
                         })}
                     </div>
                 </div>
