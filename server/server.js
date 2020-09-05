@@ -24,7 +24,7 @@ io.on("connection", (socket) => {
 
     //new message
     socket.on("message", ({ username, room, message }) => {
-        io.in(room).emit("disMessage", { username, message });
+        io.emit("distMessage", { username, message });
     });
     socket.on("disconnect", ({ username }) => {
         const updatedUsersArray = users.filter(

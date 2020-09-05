@@ -18,11 +18,15 @@ const ChatRoom = ({ location }) => {
     useEffect(() => {
         io.emit("join", { username, room });
 
-        io.on("greetNewUser", (value) => {
-            setMessages([...messages, value]);
-        });
+        io.on("greetNewUser", (value) => {});
+
         io.on("updateConnectedUsers", (value) => {
-            console.log(value);
+            return setUsers([...value]);
+        });
+
+        io.on("distMessage", async ({ username, message }) => {
+            setMessages([message])
+            return setMessages([ message,...messages,]);
         });
         return () => {
             io.emit("disconnect", { username });
@@ -30,17 +34,9 @@ const ChatRoom = ({ location }) => {
         };
     }, [endPoint, location.search]);
 
-    useEffect(() => {
-        io.on("disMessage", ({ username, message }) => {
-            const newMessage = message;
-            setMessages([...messages, newMessage]);
-        });
-    }, [message]);
-
     const handleNewMessage = () => {
         io.emit("message", { username, room, message });
         console.log(messages);
-
         // io.emit("message", message);
     };
     //close socket on browser close
