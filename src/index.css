@@ -3,13 +3,10 @@
   margin:0;
   box-sizing: border-box;
 }
-.App {
-  text-align: center;
-  height: 100vh;
-  widows: 100%;
-  background: linear-gradient(230.45deg, #ECBAFD 45.47%, rgba(102, 117, 253, 0.25) 89.92%);
-  align-items: center;
-  display: flex;
-  justify-content: center;
-}
 
+
+#particles-js{
+  background-color: #2c2e43;
+  width: 100%;
+  height: 100vh;
+}

@@ -1,115 +1,108 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './ChatRoom.css';
-import * as Components from './components';
 import socketio from 'socket.io-client';
-import { set } from 'mongoose';
-
+import Router from '../../';
 // import userImage from '../../assets/user.jpg'
+let io;
 
 const ChatRoom = ({ location }) => {
-    const userInput = {
-        username: window.localStorage.getItem('userName'),
-        room: window.localStorage.getItem('room'),
-    };
+    const [isSocketOpen, setIsSocketOpen] = useState(false);
+    const endPoint = 'http://127.0.0.1:5000/';
+    const [username, setUsername] = useState(
+        window.localStorage.getItem('username')
+    );
+    const [room, setRoom] = useState(window.localStorage.getItem('room'));
+
     //
-    //Chat data
-    var __temp_message = [];
-    const [username, setUsername] = useState(userInput.username);
-    const [room, setRoom] = useState(userInput.room);
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
-    const [userType, setUserType] = useState('');
-    const [users, setUsers] = useState([]);
-    const endPoint = 'http://127.0.0.1:5000/';
-    const io = socketio.connect(endPoint);
-    const [id, setId] = useState('');
-    const [obj, setObj] = useState({});
-    //object the will be sent to server
-
-    const userObj = (username, room, id) => {
-        return { username, room, id };
-    };
-
-    useEffect(() => {
-        setObj(userObj(username, room, io.id));
-    }, [endPoint]);
-    useEffect(() => {
-        //store socket ID
-        //clear local storage
-        window.localStorage.clear();
-        //joinin room and announcing it back from the server to the sockets connected to that room
-        io.emit('join', userObj);
-        //Sends welcome string to selected room
-        io.on('greetNewUser', ({ username, message }) => {
-            return setMessages((messages) => [
-                ...messages,
-                { username, message },
-            ]);
-        });
-        //updates connected sockets list
-
-        io.on('updateConnectedUsers', (users) => {
-            setUsers([...users]);
-        });
-
-        return () => {
-            io.emit('disconnect', userObj);
-            io.disconnect();
-            io.off();
+    //
+    const inputRef = useRef(null);
+    const userObj = () => {
+        return {
+            username,
+            room,
+            id: io.id,
         };
-    }, [endPoint, location.search]);
-
-    io.on('disMessage', ({ username, message }) => {
-        return setMessages((messages) => [...messages, { username, message }]);
-    });
-
-    const handleNewMessage = () => {
-        console.log(obj);
-        return io.emit('message', { username, room, message });
     };
-    //close socket on browser close
-    window.onbeforeunload = function () {
-        io.emit('disconnect', { username });
-        return io.off();
+    const generateMessage = (text) => {
+        return {
+            username,
+            room,
+            message: text,
+            date: Date.now(),
+        };
     };
 
+    const initSocket = () => {
+        console.log('we got connection');
+
+        setIsSocketOpen(true);
+
+        io = socketio.connect(endPoint);
+
+        io.emit('newLogin', userObj());
+        return () => {
+            io.emit('disconnect');
+            io.off();
+
+            setIsSocketOpen(false);
+        };
+    };
+    const handleServerMessages = () => {
+        io.on('newUserAnnounce', (value) => {
+            setMessages((prevState) => [value, ...prevState]);
+        });
+
+        io.on('messageInRoom', (value) => {
+            console.log(value);
+            setMessages((prevState) => [value, ...prevState]);
+        });
+    };
+    //init socket.io
+    useEffect(initSocket, [window.location]);
+
+    //handle incoming messages
+    useEffect(handleServerMessages, [window.location]);
+
+    const handleMessageSend = () => {
+        io.emit('newMessage', generateMessage(message));
+        inputRef.current.value = '';
+        console.log(messages);
+    };
+
+    const mapMessages = (messages) => {
+        return messages.map((message) => {
+            return (
+                <div key={message.date} className="messageWrapper">
+                    <span className="sender">{message.username}</span>
+                    <span className="date">{message.date}</span>
+                    <span className="content">{message.message}</span>
+                </div>
+            );
+        });
+    };
     return (
         <div className="layoutContainer">
-            <div className="usersContainerWrap">
+            <div className="usersContainer">
                 <p>chats</p>
                 <div className="usersOutsideContainer">
                     <div className="quickContactContainer">
                         <div className="miniContact" />
                     </div>
-                    <div className="usersInnerContainer">
-                        {users.map((user, index) => {
-                            return <div key={index}>{user.username}</div>;
-                        })}
-                    </div>
+                    <div className="usersInnerContainer"></div>
                 </div>
             </div>
             <div className="chatContainer">
-                <div className="chatWindow">
-                    {messages.map((message, index) => {
-                        return (
-                            <div key={index} className="messageContainer">
-                                <div className="chatMessageSender">
-                                    <p>{message.username}</p>
-                                </div>
-                                <div className="messageContent">
-                                    {message.message}
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
+                <div className="chatWindow">{mapMessages(messages)}</div>
             </div>
             <div className="controls">
                 <input
+                    ref={inputRef}
                     onInput={(event) => setMessage(event.target.value)}
                     placeholder="type something..."
                 />
-                <button onClick={handleNewMessage}>Send</button>
+                <button onClick={handleMessageSend}>Send</button>
             </div>
         </div>
     );

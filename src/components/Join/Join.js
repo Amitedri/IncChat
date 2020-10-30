@@ -1,35 +1,78 @@
-import React, { useState, useEffect } from "react";
-import "./Join.css";
-import socketio from "socket.io-client";
+import React, { useEffect, useRef, useState } from 'react';
+import './Join.css';
+const Join = () => {
+    const parentRef = useRef(null);
+    const roomButtonRef = useRef(null);
+    const [username, setUsername] = useState('');
+    const [room, setRoom] = useState('');
+    const [isOpen, setIsOpen] = useState('');
 
-const Join = ({location}) => {
-
-    const [userName, setUserName] = useState("");
-
-    const [room, setRoom] = useState("");
-
-    const handleJoin = () => {
-        window.localStorage.setItem("userName", userName);
-        window.localStorage.setItem("room", room);
-        window.location.href = '/chat';
+    const handleUserName = (event) => {
+        //TODO check if user exist
+        window.localStorage.setItem('username', event.target.value);
+        return setUsername(event.target.value);
     };
 
+    const createRoomList = () => {
+        const elem = document.createElement('div');
+        elem.classList.add('div');
+        elem.classList.add('roomPopup');
+        elem.addEventListener('mouseleave', removePopup);
 
+        const elems = ['Javascript', 'Pentest', 'Low-level'];
+        parentRef.current.append(elem);
+
+        elems.forEach((el) => {
+            const spanElem = document.createElement('span');
+            spanElem.textContent = el;
+            const parent = document.getElementsByClassName('roomPopup')[0];
+            parent.append(spanElem);
+        });
+        elem.addEventListener('click', (event) => {
+            roomButtonRef.current.textContent = event.target.textContent;
+            setRoom(event.target.textContent);
+            window.localStorage.setItem('room', event.target.textContent);
+        });
+        setIsOpen(true);
+        return elem;
+    };
+    const handleRoomPopup = () => {
+        if (!isOpen) {
+            createRoomList();
+        }
+    };
+    const removePopup = (event) => {
+        setIsOpen(false);
+        parentRef.current.removeChild(parentRef.current.lastChild);
+    };
+
+    const handleJoin = () => {
+        if (room && username) {
+            window.location = '/chat';
+        }
+    };
     return (
         <div className="joinContainer">
-            <div className="inputs">
-                <h1>Start Chatting</h1>
+            <div ref={parentRef} className="topContent">
+                <div className="textHeader">Chatty</div>
                 <input
-                    onInput={(event) => setUserName(event.target.value)}
-                    placeholder="Enter a user name"
+                    onInput={handleUserName}
+                    type="text"
+                    placeholder="Pick a usename"
                 />
-                <input
-                    onInput={(event) => setRoom(event.target.value)}
-                    placeholder="Anter a room"
-                />
+                {/* <button className="randomUserButton" /> */}
+                <button
+                    ref={roomButtonRef}
+                    onClick={handleRoomPopup}
+                    className="roomButton"
+                >
+                    Choose room
+                </button>
             </div>
-            <div className="controllers">
-                <button onClick={handleJoin}>Join!</button>
+            <div className="bottomContent">
+                <button onClick={handleJoin} className="joinButton">
+                    Join now
+                </button>
             </div>
         </div>
     );
