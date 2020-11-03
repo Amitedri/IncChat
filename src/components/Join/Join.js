@@ -19,7 +19,7 @@ const Join = () => {
         elem.classList.add('roomPopup');
         elem.addEventListener('mouseleave', removePopup);
 
-        const elems = ['Javascript', 'Pentest', 'Low-level'];
+        const elems = ['Javascript', 'Pentest', 'Python'];
         parentRef.current.append(elem);
 
         elems.forEach((el) => {
