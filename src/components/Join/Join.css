@@ -6,7 +6,7 @@
     background: linear-gradient(
         72.63deg,
         rgba(43, 47, 53, 0.98) -5.58%,
-        rgba(238, 20, 97, 0.63) 94.61%
+        rgba(141, 141, 141, 0.63) 94.61%
     );
     display: flex;
     flex-direction: column;
@@ -15,6 +15,7 @@
     position: absolute;
     left: 38%;
     top: 25%;
+    border: 2px solid grey;
 }
 
 .topContent {
@@ -27,10 +28,12 @@
 }
 
 .textHeader {
-    font-size: 50px;
+    font-size: 8vh;
+    font-family: 'Ubuntu', sans-serif;
+    color: white;
 }
 
-input {
+.topContent .usernameInput {
     all: unset;
     margin-top: 5vh;
     margin-bottom: 3vh;
@@ -39,6 +42,7 @@ input {
     background-color: white;
     border-radius: 15px;
     align-self: center;
+    font-size: 2vh;
 }
 .roomButton {
     all: unset;
@@ -49,47 +53,122 @@ input {
         rgba(43, 47, 53, 0.98) -5.58%,
         rgba(240, 240, 240, 0.63) 94.61%
     );
-    border-radius: 20px;
+    border-radius: 15px;
     align-self: center;
     border: 1px solid white;
+    font-size: 2vh;
+    cursor: pointer;
 }
 .roomPopup {
-    width: 60%;
+    width: 30%;
     height: 20%;
     position: absolute;
-    bottom: 0;
+    bottom: 3vh;
     background-color: white;
-    left: 10vh;
+    left: 8.5vw;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     transition: all 2s ease-in-out;
     cursor: pointer;
+    text-align: center;
+    animation: inlight 0.5s ease-in-out;
+    z-index: 3;
 }
 
-.roomPopup span:hover {
-    background-color: lightcyan;
+.room {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+}
+
+.room:hover {
+    background: linear-gradient(
+        72.63deg,
+        rgba(43, 47, 53, 0.98) -5.58%,
+        rgba(238, 20, 97, 0.63) 94.61%
+    );
+}
+.switchWrapper {
+    height: 3vh;
+    width: 7vh;
+    background-color: white;
+    margin: 0 auto;
+    border-radius: 15px;
+    margin-top: 5px;
+    position: relative;
+    border: 2px solid grey;
+}
+
+.switchButton {
+    height: 2.5vh;
+    width: 2.5vh;
+    background-color: rgb(83, 83, 83);
+    border-radius: 50%;
+    float: left;
+    margin-right: 1px;
+    margin-left: 1px;
+    border: 1px solid rgb(85, 85, 85);
+}
+.enryptText {
+    margin-top: 2vh;
+    color: white;
+    font-weight: 100;
+    font-size: 2vh;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    font-family: 'Ubuntu', sans-serif;
+    width: 50%;
+    align-self: center;
+}
+.missingField {
+    transition: all 0.5s ease-in-out;
+    animation: larger 1s ease-in-out;
 }
 
 .joinButton {
     all: unset;
     height: 5vh;
     width: 15vh;
-    cursor: pointer;
+    cursor: pointer !important;
     background: linear-gradient(
         72.63deg,
         rgba(43, 47, 53, 0.98) -5.58%,
         rgba(240, 240, 240, 0.63) 94.61%
     );
     border-radius: 20px;
-    border: 2px solid white;
+    border: 1px solid white;
+    color: white;
+    font-size: 2vh;
+    align-self: center;
 }
 
-.active {
-    height: 20%;
+.secretKeyWrapper {
+    height: 3vh;
+    width: 10vw;
+    align-self: center;
+    animation: inlight 1s ease-in-out;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
 }
-.bottomContent {
-    height: 20%;
+.secretKeyWrapper input {
+    all: unset;
+    height: 100%;
     width: 100%;
+    border-radius: 10px;
+    background-color: white;
 }
+.error {
+    animation: inlight 1s ease-in-out;
+}
+/* ANIMATIONS */
+@keyframes inlight {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+

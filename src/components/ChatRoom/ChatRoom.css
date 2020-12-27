@@ -1,73 +1,114 @@
-.layoutContainer {
+.chatContainer {
     width: 85%;
-    height: 80%;
-    border: 2px solid white;
-    border-radius: 10px;
+    height: 80vh;
     position: absolute;
+    top: 5vh;
+    left: 8vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(196, 196, 196, 0.281);
+    border-radius: 20px;
+}
+
+.chatUsersContainer {
+    height: 100%;
+    width: 15%;
+    background-color: rgba(148, 148, 148, 0.596);
+    box-shadow: 0px 0px 1px 1px rgb(145, 145, 145);
+    position: absolute;
+    left: 0;
+    background: linear-gradient(180.44deg, #5a6c9a 38.18%, #c4c4c4 118.78%);
+    border-radius: 20px;
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+}
+.chatScreen {
+    height: 85%;
+    width: 85%;
+    background: linear-gradient(254.31deg, rgba(184, 181, 183, 0.86) 8.61%, rgba(51, 0, 255, 0.54) 132.33%);
+    align-self: flex-end;
+    position: relative;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    position: absolute;
+    top: 1vh;
+}
+/* messages */
+.messageWrapper {
+    height: auto;
+    width: fit-content;
+    border-radius: 20px;
+    margin-left: 2vw;
+    position: relative;
+    margin-top: 1vh;
+    border: 1px solid white;
+    overflow: hidden;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+.sender {
+    width: auto;
+    height: auto;
+    margin-right: 0.1vw;
+}
+.content {
+    height: auto;
+    width: auto;
+}
+
+/* CHAT KEYBOARD */
+.chatControls {
+    height: 5%;
+    width: 85%;
+    border-bottom-right-radius: 20px;
+    align-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 3vh;
+    right: 0;
+}
+
+.keyboard {
+    height: 100%;
+    width: 70%;
+    float: left;
+}
+.keyboard input {
+    all: unset;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+.chatButton {
+    height: 100%;
+    width: 10%;
+    float: right;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    top: 10vh;
-    left: 15vh;
-}
-
-.chatContainer {
-    height: 100%;
-    width: 80%;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-}
-.chatWindow {
-    width: 80%;
-    height: 80%;
-    background-color: white;
-    border-radius: 15px;
-    align-self: center;
-    margin-top: 1vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
     overflow: hidden;
+    position: relative;
+    background-color: rgba(175, 175, 175, 0.836);
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
 }
-
-.messageWrapper{
-    width: 60%;
-    height: auto;
-    margin-top: 5vh;
-    margin-bottom: 1.5vh;
-    margin-left: 2vh;
-}
-
-.messageWrapper .sender{
-    text-align: left;
-    font-size: 15px;
-    font-weight: 600;
-    color: blue;
-}
-.controls {
-    width: 60%;
-    height: 10%;
-    position: absolute;
-    bottom: 5%;
-    right: 10%;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-}
-
-.controls input {
-    all: unset;
-    min-width: 85%;
-    background-color: white;
-    border-radius: 15px;
-    float: left;
-}
-.controls button {
-    all: unset;
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    background-color: white;
+.chatButton img {
+    background-image: url('../../assets/send.png');
+    background-repeat: no-repeat;
+    align-self: center;
+    background-size: 100%;
+    height: 30px;
+    width: 30px;
+    float: right;
 }
