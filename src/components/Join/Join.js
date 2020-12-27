@@ -1,79 +1,64 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './Join.css';
+// COMPONENTS
+import Rooms from './Room';
+import Secret from './Secret';
+
+//METHODS
+const { handleUserName, handleSubmit } = require('./JoinUtils');
+
 const Join = () => {
-    const parentRef = useRef(null);
-    const roomButtonRef = useRef(null);
     const [username, setUsername] = useState('');
     const [room, setRoom] = useState('');
-    const [isOpen, setIsOpen] = useState('');
+    const [isOpen, setIsOpen] = useState(false);
+    const [switchOn, setSwitchOn] = useState(false);
 
-    const handleUserName = (event) => {
-        //TODO check if user exist
-        window.localStorage.setItem('username', event.target.value);
-        return setUsername(event.target.value);
-    };
-
-    const createRoomList = () => {
-        const elem = document.createElement('div');
-        elem.classList.add('div');
-        elem.classList.add('roomPopup');
-        elem.addEventListener('mouseleave', removePopup);
-
-        const elems = ['Javascript', 'Pentest', 'Python'];
-        parentRef.current.append(elem);
-
-        elems.forEach((el) => {
-            const spanElem = document.createElement('span');
-            spanElem.textContent = el;
-            const parent = document.getElementsByClassName('roomPopup')[0];
-            parent.append(spanElem);
-        });
-        elem.addEventListener('click', (event) => {
-            roomButtonRef.current.textContent = event.target.textContent;
-            setRoom(event.target.textContent);
-            window.localStorage.setItem('room', event.target.textContent);
-        });
-        setIsOpen(true);
-        return elem;
-    };
-    const handleRoomPopup = () => {
-        if (!isOpen) {
-            createRoomList();
-        }
-    };
-    const removePopup = (event) => {
-        setIsOpen(false);
-        parentRef.current.removeChild(parentRef.current.lastChild);
-    };
-
-    const handleJoin = () => {
-        if (room && username) {
-            window.location = '/chat';
-        }
+    const getRoomState = (data) => {
+        setRoom(() => data.room);
+        setIsOpen(() => data.showComponent);
     };
     return (
+
         <div className="joinContainer">
-            <div ref={parentRef} className="topContent">
+            <div className="topContent">
                 <div className="textHeader">Chatty</div>
-                <input
-                    onInput={handleUserName}
-                    type="text"
-                    placeholder="Pick a usename"
-                />
-                {/* <button className="randomUserButton" /> */}
+                <div className="inputWrapper">
+                    <input
+                        onInput={(event) => handleUserName(event, setUsername)}
+                        type="text"
+                        placeholder="Pick a usename"
+                        className="usernameInput"
+                    />
+                </div>
                 <button
-                    ref={roomButtonRef}
-                    onClick={handleRoomPopup}
+                    onClick={(room) => setIsOpen((prevstate) => !prevstate)}
                     className="roomButton"
                 >
                     Choose room
                 </button>
+                <div className="roomWrapper">
+                    {isOpen ? <Rooms setRoomState={getRoomState} /> : null}
+                </div>
+                <span className="enryptText">
+                    Try to encrypt your messages !
+                </span>
+                <div className="switchWrapper">
+                    <div
+                        onClick={() => setSwitchOn((prevstate) => !prevstate)}
+                        className="switchButton"
+                    >
+                        
+                    </div>
+                </div>
+                {switchOn && !isOpen ? <Secret /> : null}
+
             </div>
-            <div className="bottomContent">
-                <button onClick={handleJoin} className="joinButton">
-                    Join now
-                </button>
-            </div>
+            <button
+                className="joinButton"
+                onClick={() => handleSubmit(username, room)}
+            >
+                Join!
+            </button>
         </div>
     );
 };
