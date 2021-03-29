@@ -17,7 +17,7 @@ const App = () => {
         <div>
             <div id="particles-js">
                 <Switch>
-                    <Route exact path="/chat" component={ChatRoom} />
+                    <Route exact path="/chat" component={() => <ChatRoom />} />
                     <Route exat path="/" component={Join} />
                 </Switch>
             </div>

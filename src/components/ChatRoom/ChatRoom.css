@@ -23,7 +23,9 @@
     opacity: 1;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
 }
+
 .chatScreen {
     height: 85%;
     width: 85%;
@@ -62,7 +64,10 @@
     height: auto;
     width: auto;
 }
-
+/* MOBILE MENU */
+.mobileMenuContainer {
+    display: none;
+}
 /* CHAT KEYBOARD */
 .chatControls {
     height: 5%;
@@ -111,4 +116,102 @@
     height: 30px;
     width: 30px;
     float: right;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@media screen and (max-width: 500px) {
+    .chatContainer {
+        width: 100%;
+        height: 100%;
+        left: 0;
+        position: relative;
+    }
+    .chatScreen {
+        width: 100%;
+        height: 85%;
+        
+    }
+    .chatUsersContainer {
+        display: none;
+        position: absolute;
+        height: 50%;
+        width: 50%;
+        top: 0;
+        animation: appear 1s ease-in-out;
+    }
+    .chatControls {
+        height: 8%;
+        width: 100%;
+        position: absolute;
+        bottom: 5%;
+    }
+    .keyboard {
+        width: 100%;
+    }
+    .keyboard input {
+        width: 100%;
+        border-radius: 0;
+    }
+    .messageWrapper:nth-child(2){
+        margin-top: 10%;
+    }
+    .mobileMenuContainer {
+        width: 100%;
+        height: 5%;
+        top: 1px;
+        align-self: flex-start;
+        position: absolute;
+        top: 1px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        margin-bottom: 5%;
+    }
+    .mobileButton {
+        margin-top: 1px;
+        height: 100%;
+        width: 15%;
+        margin-right: 2%;
+        border: none !important;
+
+    }
+    .mobileButton img {
+        all: unset;
+        height: 100%;
+        width: 100%;
+        background-size: 100%;
+        border: none !important;
+        filter: invert(85%);
+    }
+    .mobileMenu{
+        height: 60%;
+        width: 80%;
+        position: absolute;
+        left: 10%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        z-index:9999;
+        background: linear-gradient(208.82deg, #E9ECF4 11.65%, rgba(111, 74, 120, 0.85) 94.08%);
+        border-radius: 5px;
+        letter-spacing: 1px;
+
+    }
+    .exitButton{
+        all: unset;
+        width: 80%;
+        height: 10%;
+        background-color: wheat;
+        align-self: center;
+        text-align: center;
+        border-radius: 5px;
+        margin-bottom: 2%;
+    }
 }

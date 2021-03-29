@@ -2,10 +2,20 @@
     width: 100%;
     min-height: 3vh;
     margin-top: 1vh;
-
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    padding-bottom: 15px;
+    position: relative;
+}
+.onlineUserContainer::before {
+    content: ' ';
+    position: absolute;
+    left: 10%;
+    bottom: 0;
+    height: 1px;
+    width: 80%;
+    border-bottom: 1px solid grey;
 }
 .userThumbnailImage {
     height: 25px;
@@ -22,5 +32,13 @@
 }
 .userInfoContnet span {
     align-self: center;
-    font-weight: 600;
+    /* font-weight: 600; */
+    letter-spacing: 1px;
+}
+
+@media screen and (max-width: 600px) {
+    .userInfoContnet span {
+        font-size: 0.8em;
+        letter-spacing: 0px;
+    }
 }

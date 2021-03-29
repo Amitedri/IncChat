@@ -18,45 +18,23 @@ const Join = () => {
         setIsOpen(() => data.showComponent);
     };
     return (
-
         <div className="joinContainer">
             <div className="topContent">
                 <div className="textHeader">Chatty</div>
                 <div className="inputWrapper">
-                    <input
-                        onInput={(event) => handleUserName(event, setUsername)}
-                        type="text"
-                        placeholder="Pick a usename"
-                        className="usernameInput"
-                    />
+                    <input onInput={(event) => handleUserName(event, setUsername)} type="text" placeholder="Pick a usename" className="usernameInput" />
                 </div>
-                <button
-                    onClick={(room) => setIsOpen((prevstate) => !prevstate)}
-                    className="roomButton"
-                >
+                <button onClick={(room) => setIsOpen((prevstate) => !prevstate)} className="roomButton">
                     Choose room
                 </button>
-                <div className="roomWrapper">
-                    {isOpen ? <Rooms setRoomState={getRoomState} /> : null}
-                </div>
-                <span className="enryptText">
-                    Try to encrypt your messages !
-                </span>
+                {isOpen && <Rooms setRoomState={getRoomState} />}
+                <span className="enryptText">Try to encrypt your messages !</span>
                 <div className="switchWrapper">
-                    <div
-                        onClick={() => setSwitchOn((prevstate) => !prevstate)}
-                        className="switchButton"
-                    >
-                        
-                    </div>
+                    <div onClick={() => setSwitchOn((prevstate) => !prevstate)} className="switchButton"></div>
                 </div>
                 {switchOn && !isOpen ? <Secret /> : null}
-
             </div>
-            <button
-                className="joinButton"
-                onClick={() => handleSubmit(username, room)}
-            >
+            <button className="joinButton" onClick={() => handleSubmit(username, room)}>
                 Join!
             </button>
         </div>
